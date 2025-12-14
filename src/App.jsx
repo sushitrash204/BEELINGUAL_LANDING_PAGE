@@ -1,35 +1,87 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import HeroSection from './components/HeroSection';
+import FeaturesSection from './components/FeaturesSection';
+import StatisticsSection from './components/StatisticsSection';
+import DownloadSection from './components/DownloadSection';
+import Footer from './components/Footer';
+import { fetchLandingPageContent, fetchStatistics, fetchThemeSettings } from './services/api';
+import './App.css';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [content, setContent] = useState({});
+  const [stats, setStats] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    loadData();
+  }, []);
+
+  const loadData = async () => {
+    try {
+      // Fetch all data in parallel
+      const [contentData, statsData, themeData] = await Promise.all([
+        fetchLandingPageContent(),
+        fetchStatistics(),
+        fetchThemeSettings()
+      ]);
+
+      if (contentData) setContent(contentData);
+      if (statsData) setStats(statsData);
+      if (themeData) applyTheme(themeData);
+
+    } catch (error) {
+      console.error('Error loading landing page data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const applyTheme = (theme) => {
+    if (!theme) return;
+
+    const root = document.documentElement;
+
+    // Helper to convert hex to rgb
+    const hexToRgb = (hex) => {
+      const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+      return result ? `${parseInt(result[1], 16)}, ${parseInt(result[2], 16)}, ${parseInt(result[3], 16)}` : null;
+    };
+
+    const setPropertyWithRgb = (name, value) => {
+      root.style.setProperty(name, value);
+      const rgb = hexToRgb(value);
+      if (rgb) {
+        root.style.setProperty(`${name}-rgb`, rgb);
+      }
+    };
+
+    setPropertyWithRgb('--primary-color', theme.primaryColor);
+    setPropertyWithRgb('--secondary-color', theme.secondaryColor);
+    setPropertyWithRgb('--accent-color', theme.accentColor);
+    setPropertyWithRgb('--background-color', theme.backgroundColor);
+    setPropertyWithRgb('--text-color', theme.textColor);
+    setPropertyWithRgb('--gradient-start', theme.gradientStart);
+    setPropertyWithRgb('--gradient-end', theme.gradientEnd);
+  };
+
+  if (loading) {
+    return (
+      <div className="loading-screen">
+        <div className="loading-spinner"></div>
+        <p>Loading Beelingual...</p>
+      </div>
+    );
+  }
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <HeroSection content={content.hero} />
+      <FeaturesSection content={content.features} />
+      <StatisticsSection stats={stats} />
+      <DownloadSection content={content.download} />
+      <Footer content={content.footer} />
+    </div>
+  );
 }
 
-export default App
+export default App;

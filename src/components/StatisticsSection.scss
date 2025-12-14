@@ -1,0 +1,242 @@
+.statistics-section {
+    background: var(--light-bg);
+    color: var(--background-color);
+    padding: 5rem 0;
+
+    .section-header {
+        text-align: center;
+        margin-bottom: 4rem;
+    }
+
+    .section-title {
+        color: var(--background-color);
+        font-size: 2.5rem;
+        font-weight: 700;
+    }
+
+    .section-subtitle {
+        color: var(--medium-gray);
+        font-size: 1.15rem;
+    }
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 4rem;
+    margin-top: 3rem;
+}
+
+.stat-card {
+    text-align: center;
+    padding: 3.5rem 2.5rem;
+    background: white;
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-md);
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    will-change: transform, box-shadow;
+    z-index: 1;
+
+    // Hiệu ứng Ánh sáng Lấp lánh (::after)
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // Sử dụng biến màu icon-color-rgb
+        background: radial-gradient(circle at center, transparent 0%, rgba(var(--icon-color-rgb, 59, 130, 246), 0.05) 50%, transparent 100%);
+        opacity: 0;
+        transition: opacity 0.5s ease;
+        z-index: 2;
+    }
+
+    // Thanh indicator động trên cùng (::before)
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+        background: linear-gradient(90deg, var(--icon-color, var(--primary-color)), var(--icon-color, var(--primary-color)) 70%, transparent);
+        transform: scaleX(0);
+        transform-origin: left center;
+        transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+        z-index: 3;
+    }
+
+    /* === HIỆU ỨNG HÌNH DẠNG TRỪU TƯỢNG (Background Shapes) === */
+    .stat-background-shape {
+        position: absolute;
+        pointer-events: none;
+        opacity: 0.08;
+        border-radius: 50%;
+        background: var(--icon-color, var(--accent-color));
+        transition: all 0.6s ease-in-out;
+        z-index: 0;
+    }
+
+    // Hình 1: Lớn, ở góc dưới bên phải
+    .stat-background-shape:nth-child(1) {
+        width: 150px;
+        height: 150px;
+        bottom: -75px;
+        right: -75px;
+        transform: rotate(15deg);
+    }
+
+    // Hình 2: Nhỏ hơn, ở góc trên bên trái
+    .stat-background-shape:nth-child(2) {
+        width: 80px;
+        height: 80px;
+        top: -40px;
+        left: -40px;
+        border-radius: 30%;
+        transform: rotate(-30deg);
+    }
+
+    &:hover {
+        transform: translateY(-15px);
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+        border-color: rgba(var(--icon-color-rgb, 59, 130, 246), 0.5);
+
+        &::before {
+            transform: scaleX(1);
+        }
+
+        &::after {
+            opacity: 1;
+        }
+
+        .stat-icon-wrapper {
+            transform: scale(1.15) rotate(-3deg);
+            animation: pulse 1s infinite;
+            /* Kích hoạt Pulse animation */
+        }
+
+        .stat-number {
+            letter-spacing: 1px;
+        }
+
+        // Di chuyển và xoay các hình dạng nền khi hover
+        .stat-background-shape:nth-child(1) {
+            transform: translate(-10px, -10px) rotate(45deg);
+            opacity: 0.15;
+        }
+
+        .stat-background-shape:nth-child(2) {
+            transform: translate(5px, 5px) rotate(-60deg);
+            opacity: 0.15;
+        }
+    }
+}
+
+.stat-icon-wrapper {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 85px;
+    height: 85px;
+    margin-bottom: 2rem;
+    // Sử dụng biến màu RGB để tạo nền trong suốt
+    background: rgba(var(--icon-color-rgb, 59, 130, 246), 0.1);
+    border-radius: 50%;
+    position: relative;
+    transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    box-shadow: 0 0 0 0 rgba(var(--icon-color-rgb, 59, 130, 246), 0.4);
+
+    &::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: var(--icon-color);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+}
+
+// Thêm animation pulse
+@keyframes pulse {
+    0% {
+        box-shadow: 0 0 0 0 rgba(var(--icon-color-rgb, 59, 130, 246), 0.4);
+    }
+
+    70% {
+        box-shadow: 0 0 0 15px rgba(var(--icon-color-rgb, 59, 130, 246), 0);
+    }
+
+    100% {
+        box-shadow: 0 0 0 0 rgba(var(--icon-color-rgb, 59, 130, 246), 0);
+    }
+}
+
+.stat-icon {
+    font-size: 3rem;
+    color: var(--icon-color);
+    position: relative;
+    z-index: 1;
+}
+
+.stat-number {
+    font-size: 4rem;
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+    font-family: 'Be Vietnam Pro', 'Outfit', sans-serif;
+    transition: letter-spacing 0.3s ease-out;
+
+    /* Hỗ trợ gradient-text từ BE - không override */
+    &:not(.gradient-text) {
+        color: var(--icon-color, #3b82f6);
+    }
+}
+
+.stat-label {
+    font-size: 1.15rem;
+    color: var(--medium-gray);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Responsive */
+@media (max-width: 992px) {
+    .stats-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 3rem;
+    }
+
+    .stat-card {
+        padding: 3rem 2rem;
+    }
+}
+
+@media (max-width: 768px) {
+    .stat-number {
+        font-size: 3rem;
+    }
+
+    .stat-label {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .statistics-section {
+        padding: 3rem 0;
+    }
+
+    .stats-grid {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .stat-card:hover {
+        transform: translateY(-8px);
+    }
+}
