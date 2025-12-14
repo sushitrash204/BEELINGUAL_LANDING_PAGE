@@ -1,7 +1,7 @@
 import './FeaturesSection.scss';
 
 const FeaturesSection = ({ content }) => {
-    const features = content?.features || [];
+    const features = Array.isArray(content) ? content : (content?.features || []);
 
     return (
         <section className="features-section" id="features">
