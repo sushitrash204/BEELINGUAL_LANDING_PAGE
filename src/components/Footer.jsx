@@ -63,7 +63,6 @@ const Footer = ({ content }) => {
 
                 <div className="footer-bottom">
                     <p>&copy; {currentYear} Beelingual. All rights reserved.</p>
-                    <p>Made with <i className="bi bi-heart-fill"></i> for English learners</p>
                 </div>
             </div>
         </footer>
