@@ -18,8 +18,13 @@ function App() {
 
     // Listen for messages from Admin Preview
     const handleMessage = (event) => {
-      // Check if it's from a trusted origin in production, 
-      // but for local dev we can be more flexible
+      // Bảo mật: Kiểm tra nguồn gửi tin nhắn (Origin)
+      const trustedOrigin = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173';
+
+      if (event.origin !== trustedOrigin) {
+        return; // Bỏ qua nếu tin nhắn không đến từ trang Admin tin cậy
+      }
+
       const { type, data } = event.data;
 
       if (type === 'BEELINGUAL_PREVIEW_UPDATE') {
