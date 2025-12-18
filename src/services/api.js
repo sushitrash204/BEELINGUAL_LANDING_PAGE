@@ -1,8 +1,8 @@
 import axios from 'axios';
 
 // Logic: Tự động thêm /api nếu biến môi trường thiếu, đảm bảo URL luôn đúng
-const baseURL = (import.meta.env.VITE_API_URL || 'http://localhost:3000/api')
-    .replace(/\/$/, '') + (import.meta.env.VITE_API_URL?.includes('/api') ? '' : '/api');
+const rawURL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
+const baseURL = rawURL.replace(/\/$/, '') + (rawURL.includes('/api') ? '' : '/api');
 
 const api = axios.create({
     baseURL,

@@ -4,6 +4,7 @@ import FeaturesSection from './components/FeaturesSection';
 import StatisticsSection from './components/StatisticsSection';
 import DownloadSection from './components/DownloadSection';
 import Footer from './components/Footer';
+import Chatbot from './components/Chatbot';
 import { fetchLandingPageContent, fetchStatistics, fetchThemeSettings } from './services/api';
 import './App.css';
 
@@ -101,6 +102,7 @@ function App() {
       <StatisticsSection stats={stats} />
       <DownloadSection content={content.download} />
       <Footer content={content.footer} />
+      <Chatbot />
     </div>
   );
 }
