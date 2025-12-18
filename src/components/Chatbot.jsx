@@ -8,11 +8,11 @@ const Chatbot = () => {
     const [isOpen, setIsOpen] = useState(false);
     const [message, setMessage] = useState('');
     const [config, setConfig] = useState({
-        botName: 'Bee-Bot',
+        botName: '',
         suggestedQuestions: []
     });
     const [chatHistory, setChatHistory] = useState([
-        { role: 'bot', text: 'Đang kết nối với Cụ Hamster...' }
+        { role: 'bot', text: 'Đang khởi tạo chatbot...' }
     ]);
     const [isLoading, setIsLoading] = useState(false);
     const chatEndRef = useRef(null);
@@ -60,7 +60,7 @@ const Chatbot = () => {
             }
         } catch (error) {
             console.error('Chat error:', error);
-            const errorMsg = error.response?.data?.message || 'Cụ đang bận gặm hạt hướng dương, tí quay lại sau nhé! (Lỗi rồi sen ạ)';
+            const errorMsg = error.response?.data?.message || config.errorMessage || `${config.botName} đang bận một chút, bạn quay lại sau nhé!`;
             setChatHistory([...newHistory, { role: 'bot', text: errorMsg }]);
         } finally {
             setIsLoading(false);
@@ -76,7 +76,7 @@ const Chatbot = () => {
                 whileHover={{ scale: 1.1 }}
                 whileTap={{ scale: 0.9 }}
             >
-                <img src={BeeBotIcon} alt="Bee-Bot" />
+                <img src={BeeBotIcon} alt={config.botName} />
                 {!isOpen && <div className="chatbot-badge">1</div>}
             </motion.button>
 
@@ -91,10 +91,10 @@ const Chatbot = () => {
                     >
                         <div className="chatbot-header">
                             <div className="bot-info">
-                                <img src={BeeBotIcon} alt="Bee-Bot" />
+                                <img src={BeeBotIcon} alt={config.botName} />
                                 <div>
                                     <h6>{config.botName}</h6>
-                                    <span>Đang gặm hạt...</span>
+                                    <span>Trực tuyến</span>
                                 </div>
                             </div>
                             <button onClick={() => setIsOpen(false)} className="close-btn">
@@ -111,7 +111,7 @@ const Chatbot = () => {
                                 </div>
                             ))}
 
-                            {/* Câu hỏi gợi ý hihi */}
+                            {/* Câu hỏi gợi ý*/}
                             {!isLoading && chatHistory.length === 1 && config.suggestedQuestions?.length > 0 && (
                                 <div className="suggested-questions">
                                     {config.suggestedQuestions.map((q, idx) => (
@@ -141,7 +141,7 @@ const Chatbot = () => {
                         <form className="chatbot-input" onSubmit={handleSend}>
                             <input
                                 type="text"
-                                placeholder="Hỏi cụ đi sen..."
+                                placeholder={`Hỏi ${config.botName} đi sen...`}
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                             />
