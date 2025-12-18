@@ -14,6 +14,25 @@ function App() {
 
   useEffect(() => {
     loadData();
+
+    // Listen for messages from Admin Preview
+    const handleMessage = (event) => {
+      // Check if it's from a trusted origin in production, 
+      // but for local dev we can be more flexible
+      const { type, data } = event.data;
+
+      if (type === 'BEELINGUAL_PREVIEW_UPDATE') {
+        if (data.content) {
+          setContent(prev => ({ ...prev, ...data.content }));
+        }
+        if (data.theme) {
+          applyTheme(data.theme);
+        }
+      }
+    };
+
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
   }, []);
 
   const loadData = async () => {
@@ -25,6 +44,8 @@ function App() {
         fetchThemeSettings()
       ]);
 
+      // If we are in iframe, we might receive initial data from parent
+      // but we still load real data as base
       if (contentData) setContent(contentData);
       if (statsData) setStats(statsData);
       if (themeData) applyTheme(themeData);
