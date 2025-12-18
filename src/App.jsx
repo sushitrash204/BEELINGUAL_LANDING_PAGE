@@ -82,6 +82,24 @@ function App() {
     setPropertyWithRgb('--accent-color', theme.accentColor);
     setPropertyWithRgb('--background-color', theme.backgroundColor);
     setPropertyWithRgb('--text-color', theme.textColor);
+
+    // New granular colors
+    setPropertyWithRgb('--footer-color', theme.footerColor);
+    setPropertyWithRgb('--hero-headline-color', theme.heroHeadlineColor);
+    root.style.setProperty('--card-color', theme.cardColor);
+    root.style.setProperty('--input-bg-color', theme.inputBackgroundColor);
+    setPropertyWithRgb('--success-color', theme.successColor);
+    setPropertyWithRgb('--error-color', theme.errorColor);
+
+    // Chatbot specific colors
+    setPropertyWithRgb('--chat-window-color', theme.chatWindowColor);
+    setPropertyWithRgb('--bot-bubble-color', theme.botBubbleColor);
+    setPropertyWithRgb('--bot-text-color', theme.botTextColor);
+    setPropertyWithRgb('--user-bubble-color', theme.userBubbleColor);
+    setPropertyWithRgb('--user-text-color', theme.userTextColor);
+    setPropertyWithRgb('--suggest-bg-color', theme.suggestedBgColor);
+    setPropertyWithRgb('--suggest-text-color', theme.suggestedTextColor);
+
     setPropertyWithRgb('--gradient-start', theme.gradientStart);
     setPropertyWithRgb('--gradient-end', theme.gradientEnd);
   };

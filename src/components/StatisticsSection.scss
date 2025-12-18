@@ -1,6 +1,6 @@
 .statistics-section {
-    background: var(--light-bg);
-    color: var(--background-color);
+    background: var(--background-color, #0f1117);
+    color: var(--text-color, #ffffff);
     padding: 5rem 0;
 
     .section-header {
@@ -9,7 +9,7 @@
     }
 
     .section-title {
-        color: var(--background-color);
+        color: var(--text-color, #ffffff);
         font-size: 2.5rem;
         font-weight: 700;
     }
@@ -30,13 +30,14 @@
 .stat-card {
     text-align: center;
     padding: 3.5rem 2.5rem;
-    background: white;
+    background: var(--card-color, rgba(var(--secondary-color-rgb, 26, 29, 41), 0.5));
     border-radius: var(--radius-lg);
-    box-shadow: var(--shadow-md);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(8px);
     transition: all 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
     overflow: hidden;
-    border: 1px solid rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(var(--primary-color-rgb, 255, 193, 7), 0.1);
     will-change: transform, box-shadow;
     z-index: 1;
 
@@ -192,7 +193,7 @@
 
     /* Hỗ trợ gradient-text từ BE - không override */
     &:not(.gradient-text) {
-        color: var(--icon-color, #3b82f6);
+        color: var(--primary-color, #ffc107);
     }
 }
 
