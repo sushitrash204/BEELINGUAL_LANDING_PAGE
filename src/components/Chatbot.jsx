@@ -141,7 +141,7 @@ const Chatbot = () => {
                         <form className="chatbot-input" onSubmit={handleSend}>
                             <input
                                 type="text"
-                                placeholder={`Hỏi ${config.botName} đi sen...`}
+                                placeholder={`Hỏi ${config.botName}...`}
                                 value={message}
                                 onChange={(e) => setMessage(e.target.value)}
                             />
