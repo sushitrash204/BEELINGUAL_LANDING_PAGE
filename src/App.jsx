@@ -98,6 +98,7 @@ function App() {
 
     // Chatbot specific colors
     setPropertyWithRgb('--chat-window-color', theme.chatWindowColor);
+    setPropertyWithRgb('--chat-header-text-color', theme.chatHeaderTextColor);
     setPropertyWithRgb('--bot-bubble-color', theme.botBubbleColor);
     setPropertyWithRgb('--bot-text-color', theme.botTextColor);
     setPropertyWithRgb('--user-bubble-color', theme.userBubbleColor);

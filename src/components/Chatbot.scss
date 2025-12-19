@@ -88,6 +88,7 @@
             margin: 0;
             font-weight: 700;
             font-size: 15px;
+            color: var(--chat-header-text-color, #1a1d29);
         }
 
         span {
@@ -96,6 +97,7 @@
             display: flex;
             align-items: center;
             gap: 4px;
+            color: var(--chat-header-text-color, #1a1d29);
 
             &::before {
                 content: '';
@@ -149,7 +151,7 @@
     gap: 8px;
     padding: 10px 20px 5px; // Thêm padding trái phải và điều chỉnh trên dưới
     margin-top: 0;
-    background: #fff; // Đảm bảo nền trắng đồng nhất
+    background: var(--chat-window-color, #fff); // Dùng màu nền của khung chat
 
     .suggestion-btn {
         background: var(--suggest-bg-color, #fff);
