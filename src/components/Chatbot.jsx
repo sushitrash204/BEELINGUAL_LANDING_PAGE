@@ -111,23 +111,6 @@ const Chatbot = () => {
                                 </div>
                             ))}
 
-                            {/* Câu hỏi gợi ý*/}
-                            {!isLoading && chatHistory.length === 1 && config.suggestedQuestions?.length > 0 && (
-                                <div className="suggested-questions">
-                                    {config.suggestedQuestions.map((q, idx) => (
-                                        <motion.button
-                                            key={idx}
-                                            className="suggestion-btn"
-                                            onClick={(e) => handleSend(e, q.text)}
-                                            whileHover={{ scale: 1.05 }}
-                                            whileTap={{ scale: 0.95 }}
-                                        >
-                                            {q.label}
-                                        </motion.button>
-                                    ))}
-                                </div>
-                            )}
-
                             {isLoading && (
                                 <div className="message bot loading">
                                     <div className="typing-indicator">
@@ -137,6 +120,23 @@ const Chatbot = () => {
                             )}
                             <div ref={chatEndRef} />
                         </div>
+
+                        {/* Câu hỏi gợi ý*/}
+                        {!isLoading && config.suggestedQuestions?.length > 0 && (
+                            <div className="suggested-questions">
+                                {config.suggestedQuestions.map((q, idx) => (
+                                    <motion.button
+                                        key={idx}
+                                        className="suggestion-btn"
+                                        onClick={(e) => handleSend(e, q.text)}
+                                        whileHover={{ scale: 1.05 }}
+                                        whileTap={{ scale: 0.95 }}
+                                    >
+                                        {q.label}
+                                    </motion.button>
+                                ))}
+                            </div>
+                        )}
 
                         <form className="chatbot-input" onSubmit={handleSend}>
                             <input

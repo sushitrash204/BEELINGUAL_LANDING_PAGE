@@ -147,7 +147,9 @@
     display: flex;
     flex-wrap: wrap;
     gap: 8px;
-    margin-top: 10px;
+    padding: 10px 20px 5px; // Thêm padding trái phải và điều chỉnh trên dưới
+    margin-top: 0;
+    background: #fff; // Đảm bảo nền trắng đồng nhất
 
     .suggestion-btn {
         background: var(--suggest-bg-color, #fff);
