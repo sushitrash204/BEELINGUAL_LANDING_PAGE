@@ -41,7 +41,7 @@
 .feature-card {
     text-align: center;
     padding: 3rem 2rem;
-    background: var(--card-color, rgba(255, 255, 255, 0.05)); // Nền tối giản, hơi trong suốt
+    background: var(--card-color, rgba(var(--card-color-rgb), 0.7)); // Nền tối giản, hơi trong suốt
     border-radius: 16px;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);

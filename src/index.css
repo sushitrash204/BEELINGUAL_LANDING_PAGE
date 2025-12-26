@@ -13,8 +13,10 @@
   /* Granular theme variables */
   --footer-color: #0f1117;
   --hero-headline-color: #ffc107;
-  --card-color: rgba(26, 29, 41, 0.7);
-  --input-bg-color: rgba(255, 255, 255, 0.05);
+  --card-color-rgb: 26, 29, 41;
+  --card-color: rgba(var(--card-color-rgb), 0.7);
+  --input-bg-color-rgb: 255, 255, 255;
+  --input-bg-color: rgba(var(--input-bg-color-rgb), 0.05);
   --success-color: #28a745;
   --error-color: #dc3545;
 

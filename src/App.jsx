@@ -91,8 +91,8 @@ function App() {
     // New granular colors
     setPropertyWithRgb('--footer-color', theme.footerColor);
     setPropertyWithRgb('--hero-headline-color', theme.heroHeadlineColor);
-    root.style.setProperty('--card-color', theme.cardColor);
-    root.style.setProperty('--input-bg-color', theme.inputBackgroundColor);
+    setPropertyWithRgb('--card-color', theme.cardColor);
+    setPropertyWithRgb('--input-bg-color', theme.inputBackgroundColor);
     setPropertyWithRgb('--success-color', theme.successColor);
     setPropertyWithRgb('--error-color', theme.errorColor);
 

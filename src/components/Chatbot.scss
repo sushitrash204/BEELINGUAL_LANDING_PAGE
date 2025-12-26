@@ -247,7 +247,7 @@
     input {
         flex: 1;
         border: none;
-        background: var(--input-bg-color, #f1f3f5);
+        background: var(--input-bg-color, rgba(var(--input-bg-color-rgb), 0.05));
         padding: 10px 15px;
         border-radius: 25px;
         font-size: 14px;
