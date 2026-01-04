@@ -9,8 +9,10 @@ const Chatbot = () => {
     const [message, setMessage] = useState('');
     const [config, setConfig] = useState({
         botName: '',
-        suggestedQuestions: []
+        suggestedQuestions: [],
+        invitationMessage: ''
     });
+    const [showInvitation, setShowInvitation] = useState(false);
     const [chatHistory, setChatHistory] = useState([
         { role: 'bot', text: 'Đang khởi tạo chatbot...' }
     ]);
@@ -40,8 +42,21 @@ const Chatbot = () => {
     }, []);
 
     useEffect(() => {
-        if (isOpen) scrollToBottom();
+        if (isOpen) {
+            scrollToBottom();
+            setShowInvitation(false); // Ẩn lời mời khi đã mở chat
+        }
     }, [chatHistory, isOpen]);
+
+    // Timer hiện lời mời sau 5s
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (!isOpen && config.invitationMessage) {
+                setShowInvitation(true);
+            }
+        }, 5000);
+        return () => clearTimeout(timer);
+    }, [isOpen, config.invitationMessage]);
 
     const handleSend = async (e, customMsg = null) => {
         if (e && e.preventDefault) e.preventDefault();
@@ -79,6 +94,26 @@ const Chatbot = () => {
                 <img src={BeeBotIcon} alt={config.botName} />
                 {!isOpen && <div className="chatbot-badge">1</div>}
             </motion.button>
+
+            {/* Invitation Popup */}
+            <AnimatePresence>
+                {showInvitation && !isOpen && (
+                    <motion.div
+                        className="chatbot-invitation"
+                        initial={{ opacity: 0, x: 20, scale: 0.8 }}
+                        animate={{ opacity: 1, x: 0, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.5, transition: { duration: 0.2 } }}
+                    >
+                        <div className="invitation-text">{config.invitationMessage}</div>
+                        <button className="invitation-close" onClick={(e) => {
+                            e.stopPropagation();
+                            setShowInvitation(false);
+                        }}>
+                            <i className="bi bi-x"></i>
+                        </button>
+                    </motion.div>
+                )}
+            </AnimatePresence>
 
             {/* Chat Window */}
             <AnimatePresence>

@@ -15,14 +15,19 @@ function App() {
 
   useEffect(() => {
     loadData();
-
-    // Listen for messages from Admin Preview
     const handleMessage = (event) => {
-      // Bảo mật: Kiểm tra nguồn gửi tin nhắn (Origin)
-      const trustedOrigin = import.meta.env.VITE_ADMIN_URL || 'http://localhost:5173';
 
-      if (event.origin !== trustedOrigin) {
-        return; // Bỏ qua nếu tin nhắn không đến từ trang Admin tin cậy
+      const adminUrl = import.meta.env.VITE_ADMIN_URL ? import.meta.env.VITE_ADMIN_URL.replace(/\/$/, '') : null;
+
+      const allowedOrigins = [
+        adminUrl,
+        'http://localhost:5173'
+      ].filter(Boolean);
+
+      const validOrigins = allowedOrigins.filter(Boolean);
+
+      if (!validOrigins.includes(event.origin)) {
+        return;
       }
 
       const { type, data } = event.data;
