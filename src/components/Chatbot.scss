@@ -180,6 +180,10 @@
         border-radius: 18px;
         font-size: 14px;
         line-height: 1.4;
+        word-break: break-word;
+        /* FIX: Ngắt dòng nếu từ quá dài (URL) */
+        white-space: pre-wrap;
+        /* FIX: Hiển thị xuống dòng đúng định dạng */
     }
 
     &.bot {
